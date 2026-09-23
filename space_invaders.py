@@ -10,8 +10,8 @@ PLAYER_START_Y = 380
 
 ENEMY_START_Y_MIN = 50
 ENEMY_START_Y_MAX = 150
-ENEMY_SPEED_X = 1
-ENEMY_SPEED_Y = 10
+ENEMY_SPEED_X = 0.3
+ENEMY_SPEED_Y = 50
 
 BULLET_SPEED_Y = 10
 COLLISION_DISTANCE = 27
@@ -21,7 +21,7 @@ pygame.init()
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-background = pygame.image.load('background.jpg')
+background = pygame.transform.scale(pygame.image.load('background.jpg'), (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 pygame.display.set_caption("Space Invader")
 icon = pygame.image.load('icon.png')
@@ -39,10 +39,10 @@ enemyX = []
 enemyY = []
 enemyX_change = []
 enemyY_change = []
-num_of_enemies = 6
+num_of_enemies = 13
 
 for i in range(num_of_enemies):
-    enemyImg.append(pygame.image.load('enemy.png'))
+    enemyImg.append(pygame.transform.scale(pygame.image.load('enemy.png'), (30, 30)))
     enemyX.append(random.randint(0, SCREEN_WIDTH - 64))
     enemyY.append(random.randint(ENEMY_START_Y_MIN, ENEMY_START_Y_MAX))
     enemyX_change.append(ENEMY_SPEED_X)
@@ -70,7 +70,7 @@ def show_score(x, y):
     screen.blit(score, (x, y))
 
 def game_over_text():
-    game_over_text = game_over_font.render("GAME OVER", True, (255, 255, 255))
+    game_over_text = game_over_font.render("GAME OVER", True, (255, 0, 0))
     screen.blit(game_over_text, (200, 250))
 
 def player(x, y):
@@ -91,7 +91,7 @@ def isCollision(enemyX, enemyY, bulletX, bulletY):
 running = True
 while running:
     screen.fill((0, 0, 0))
-    #screen.blit(background, (0, 0))
+    screen.blit(background, (0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
